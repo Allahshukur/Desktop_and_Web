@@ -9,6 +9,17 @@
     align-content: center;
 }
 
+#AddBtn,#deleteBtn,#backBtn,#searchBtn {
+    background: red;
+    color: black;
+    border-radius: 30px;
+    font-size: 25px;
+    margin: 0 0 0 30px;
+    outline: none;
+    width: 200px;
+}
+
+
 table.customTable {
     margin-top: 30px;
     width: 100%;
@@ -70,7 +81,7 @@ a{
 
 }
 
-#soyad {
+#surnameReg {
     color: red;
     border-radius: 30px;
     font-size: 17px;
@@ -80,7 +91,7 @@ a{
     margin: 0 0 0 0px;
 }
 
-#pass {
+#password {
     color: red;
     border-radius: 30px;
     font-size: 17px;
@@ -91,7 +102,8 @@ a{
 
 }
 
-#Giriş {
+#Add {
+    width: 200px;
     background: red;
     color: black;
     border-radius: 30px;
@@ -100,7 +112,7 @@ a{
     outline: none;
 }
 
-.soyad1 {
+.surnameReg {
     margin: 0 0 0 -5px;
 
 }
@@ -134,7 +146,7 @@ a{
     padding: 0 0 0 25px;
 }
 
-#name1, #kisi, #qadin, #email, #number {
+#name1,#AgeReg, #ScholarshipReg, #surnameReg, #password {
     color: red;
     border-radius: 30px;
     font-size: 17px;
@@ -142,31 +154,24 @@ a{
     outline: none;
     padding: 0 10px;
     margin: 0 0 0 14px;
+    height: 25px;
 
 }
 
-#soyad {
+#Male, #Female {
     color: red;
     border-radius: 30px;
     font-size: 17px;
     font-family: Times New Roman;
     outline: none;
     padding: 0 10px;
-    margin: 0 0 0 0px;
-}
-
-#pass {
-    color: red;
-    border-radius: 30px;
-    font-size: 17px;
-    font-family: Times New Roman;
-    outline: none;
-    padding: 0 10px;
-    margin: 0 0 0 4px;
+    margin: 0 0 0 20px;
 
 }
 
-#Giriş {
+
+#Add {
+    width: 200px;
     background: red;
     color: black;
     border-radius: 30px;
@@ -175,7 +180,7 @@ a{
     outline: none;
 }
 
-.soyad1 {
+.surnameReg {
     margin: 0 0 0 -5px;
 
 }

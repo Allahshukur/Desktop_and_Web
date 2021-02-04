@@ -8,16 +8,18 @@
 </head>
 
 <body background="" bgcolor="blue-dark">
-<form method="post" action="/Students">
-    Name: <input type="text" class="name" id="name"/>
-    Surname : <input type="text" class="name" id="surname"/>
-    Age: <input type="number" class="name" id="age" maxlength="3"/>
-    Scholarship: <input type="number" class="name" id="scholarsip"/><br><br>
-    <button class="search" id="search">Search</button>
+
+<form method="get" action="/Students" >
+    Name: <input type="text" class="name" id="name" name="name" />
+    Surname : <input type="text" class="name" id="surname" name="surname" />
+    Age: <input type="number" class="name" id="age" maxlength="3" name="age" />
+    Scholarship: <input type="number" class="name" id="scholarsipSearch" name="scholarship" /><br><br>
+    <button type="submit" class="search" id="searchBtn">Search</button>
+    <button type="button" class="add" id="AddBtn">Add</button>
+    <button type="button" class="delete" id="deleteBtn">Delete</button>
+    <button type="button" class="back" id="backBtn"><a href="/index">Back</a></button>
 </form>
-<button class="add" id="add">Add</button>
-<button class="delete" id="delete">Delete</button>
-<a class="back" id="back" href="/index">Back</a>
+
 
 <table class="customTable">
     <thead>
@@ -49,21 +51,24 @@
             Name: <input type="text" name="isim" id="name1" placeholder="Name" pattern="[0-9]{5} " class="active">
             <span class="error1">*</span>
             <br><br>
-            <span class="soyad1">Surname: </span> <input type="text" name="soyad" id="soyad" placeholder="Soyadınız"
-                                                           required> <span class="error1">*</span>
+            <span class="surnameReg">Surname: </span> <input type="text" name="surname" id="surnameReg"
+                                                             placeholder="Surname"
+                                                             required> <span class="error1">*</span>
             <br><br>
-            Age: <input type="number" name="email" id="email" placeholder="E-mailiniz" required> <span class="error1">*</span>
+            Age: <input type="number" name="age" id="AgeReg" placeholder="Age" required> <span class="error1">*</span>
             <br><br>
-            Telefon: <input type="number" name="tel" id="number" placeholder="telefon nömrəniz" required> <span
-                class="error1">*</span>
+            Scholarsip: <input type="number" name="scholarship" id="ScholarshipReg" placeholder="Scholarship" required>
+            <span
+                    class="error1">*</span>
             <br><br>
-            Cinsiyətiniz:
-            <input type="radio" name="cinsiyet" id="kisi">Kişi
-            <input type="radio" name="cinsiyet" id="qadin">Qadın <br><br>
-            Şifrəniz: <input type="password" name="pass" id="pass" placeholder="Şifrəniz" maxlength="7" required><span
+            Gender:
+            <input type="radio" name="Gender" id="Male">Male
+            <input type="radio" name="Gender" id="Female">Female <br><br>
+            Şifrəniz: <input type="password" name="pass" id="password" placeholder="Şifrəniz" maxlength="7"
+                             required><span
                 class="error2">*</span><br><br>
-            <input type="checkbox" name="yadda saxla" id="yadda_saxla" value="Yadda saxla">Yadda Saxla<br><br>
-            <input type="submit" name="Giriş" id="Giriş" value="Qeydiyatı tamamlayın"> <br><br>
+            <input type="checkbox" name="Remember" id="Remember" value="Remember">Remember<br><br>
+            <input type="submit" name="Add" id="Add" value="Add"> <br><br>
 
         </div>
     </form>
