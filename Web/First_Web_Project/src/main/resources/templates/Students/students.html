@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student and Teacher Management</title>
+    <link rel="stylesheet" href="../index.css">
+
+</head>
+
+<body background="" bgcolor="blue-dark">
+<form method="post" action="/Students">
+    Name: <input type="text" class="name" id="name"/>
+    Surname : <input type="text" class="name" id="surname"/>
+    Age: <input type="number" class="name" id="age" maxlength="3"/>
+    Scholarship: <input type="number" class="name" id="scholarsip"/><br><br>
+    <button class="search" id="search">Search</button>
+</form>
+<button class="add" id="add">Add</button>
+<button class="delete" id="delete">Delete</button>
+<a class="back" id="back" href="/index">Back</a>
+
+<table class="customTable">
+    <thead>
+    <tr>
+        <th class="tb_id">id</th>
+        <th class="tb_name">Name</th>
+        <th class="tb_surname">Surname</th>
+        <th class="tb_age">Age</th>
+        <th class="tb_scholarsip">Scholarship</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student: ${list}">
+        <td class="tb_id" th:text="${student.id}">1</td>
+        <td class="tb_name" th:text="${student.name}">Name</td>
+        <td class="tb_surname" th:text="${student.surname}">Surname</td>
+        <td class="tb_age" th:text="${student.age}">Age</td>
+        <td class="tb_scholarship" th:text="${student.scholarship}">Scholarship</td>
+    </tr>
+    </tbody>
+</table>
+
+
+<div class="Daxilol">
+    <div class="basliq1" align="center"><b>Registration</b></div>
+
+    <form action="" method="post">
+        <div class="Daxilolmaq" align="center">
+            Name: <input type="text" name="isim" id="name1" placeholder="Name" pattern="[0-9]{5} " class="active">
+            <span class="error1">*</span>
+            <br><br>
+            <span class="soyad1">Surname: </span> <input type="text" name="soyad" id="soyad" placeholder="Soyadınız"
+                                                           required> <span class="error1">*</span>
+            <br><br>
+            Age: <input type="number" name="email" id="email" placeholder="E-mailiniz" required> <span class="error1">*</span>
+            <br><br>
+            Telefon: <input type="number" name="tel" id="number" placeholder="telefon nömrəniz" required> <span
+                class="error1">*</span>
+            <br><br>
+            Cinsiyətiniz:
+            <input type="radio" name="cinsiyet" id="kisi">Kişi
+            <input type="radio" name="cinsiyet" id="qadin">Qadın <br><br>
+            Şifrəniz: <input type="password" name="pass" id="pass" placeholder="Şifrəniz" maxlength="7" required><span
+                class="error2">*</span><br><br>
+            <input type="checkbox" name="yadda saxla" id="yadda_saxla" value="Yadda saxla">Yadda Saxla<br><br>
+            <input type="submit" name="Giriş" id="Giriş" value="Qeydiyatı tamamlayın"> <br><br>
+
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

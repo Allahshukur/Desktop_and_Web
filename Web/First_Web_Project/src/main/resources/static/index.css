@@ -1,0 +1,181 @@
+.name {
+    background: #00FFBF;
+    padding: 0px 0px 0px 10px;
+    border-radius: 30px;
+    border-color: red;
+    color: red;
+    font-size: 20px;
+    outline: none;
+    align-content: center;
+}
+
+table.customTable {
+    margin-top: 30px;
+    width: 100%;
+    background-color: #FFFFFF;
+    border-collapse: collapse;
+    border-width: 2px;
+    border-style: solid;
+}
+
+table.customTable thead {
+    font-size: 20px;
+}
+
+table.customTable td, table.customTable th {
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    padding: 5px;
+    text-align: center;
+}
+
+table.customTable thead {
+    background-color: #7ea8f8;
+}
+
+
+
+
+.Daxilol {width:740px; height:auto; margin:30px auto}
+.basliq1{ width:710px; height:40px; float:left; margin:10px 0 0 0; padding:25px; background:#00F; color:#000; border-radius:100px; font:30px "Times New Roman", Times, serif}
+.Daxilolmaq{ width:740px; height: auto; float:left; border-radius:40px; background:#6FC; margin:10px auto; padding:10px}
+
+.error1 {
+    color: #F00;
+    margin: 0 0 0 -20px;
+}
+
+.error2 {
+    color:#F00;
+    margin: 0 0 0 -15px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.span {
+    padding: 0 0 0 25px;
+}
+
+#isim {
+    color: red;
+    border-radius: 30px;
+    font-size: 17px;
+    font-family: Times New Roman;
+    outline: none;
+    padding: 0 10px;
+    margin: 0 0 0 14px;
+
+}
+
+#soyad {
+    color: red;
+    border-radius: 30px;
+    font-size: 17px;
+    font-family: Times New Roman;
+    outline: none;
+    padding: 0 10px;
+    margin: 0 0 0 0px;
+}
+
+#pass {
+    color: red;
+    border-radius: 30px;
+    font-size: 17px;
+    font-family: Times New Roman;
+    outline: none;
+    padding: 0 10px;
+    margin: 0 0 0 4px;
+
+}
+
+#Giriş {
+    background: red;
+    color: black;
+    border-radius: 30px;
+    font-size: 25px;
+    margin: 0 0 0 30px;
+    outline: none;
+}
+
+.soyad1 {
+    margin: 0 0 0 -5px;
+
+}
+
+
+
+.Daxilol {width:740px; height:auto; margin:30px auto}
+.basliq1{ width:710px; height:40px; float:left; margin:10px 0 0 0; padding:25px; background:#00F; color:#000; border-radius:100px; font:30px "Times New Roman", Times, serif}
+.Daxilolmaq{ width:740px; height: auto; float:left; border-radius:40px; background:#6FC; margin:10px auto; padding:10px}
+
+.error1 {
+    color: #F00;
+    margin: 0 0 0 -20px;
+}
+
+.active {
+    color: #f200;
+    font-color: red;
+}
+
+.error2 {
+    color:#F00;
+    margin: 0 0 0 -15px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.span {
+    padding: 0 0 0 25px;
+}
+
+#name1, #kisi, #qadin, #email, #number {
+    color: red;
+    border-radius: 30px;
+    font-size: 17px;
+    font-family: Times New Roman;
+    outline: none;
+    padding: 0 10px;
+    margin: 0 0 0 14px;
+
+}
+
+#soyad {
+    color: red;
+    border-radius: 30px;
+    font-size: 17px;
+    font-family: Times New Roman;
+    outline: none;
+    padding: 0 10px;
+    margin: 0 0 0 0px;
+}
+
+#pass {
+    color: red;
+    border-radius: 30px;
+    font-size: 17px;
+    font-family: Times New Roman;
+    outline: none;
+    padding: 0 10px;
+    margin: 0 0 0 4px;
+
+}
+
+#Giriş {
+    background: red;
+    color: black;
+    border-radius: 30px;
+    font-size: 25px;
+    margin: 0 0 0 30px;
+    outline: none;
+}
+
+.soyad1 {
+    margin: 0 0 0 -5px;
+
+}
