@@ -79,10 +79,6 @@
     font-size: 20px;
 }
 
-.studentPanelForm{
-    background: slateblue;
-}
-
 .deleteBtn{
     background: red;
     color: black;
@@ -284,15 +280,6 @@ a{
     margin: 0 0 0 14px;
     height: 25px;
     float: right;
-}
-
-#studentPanelRest {
-    margin-left: 500px;
-}
-
-.studentPanelRest {
-    background: #00FFBF !important;
-    font: 20px "Times New Roman";
 }
 
 #nameUpdate,#ageUpdate, #scholarshipUpdate, #surnameUpdate, #passwordUpdate {

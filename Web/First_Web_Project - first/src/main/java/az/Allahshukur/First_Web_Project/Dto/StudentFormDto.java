@@ -1,5 +1,7 @@
 package az.Allahshukur.First_Web_Project.Dto;
 
+import az.Allahshukur.entity.StudentEntity;
+
 import java.math.BigDecimal;
 
 public class StudentFormDto {// Dto--Data Transfer Object
@@ -39,5 +41,13 @@ public class StudentFormDto {// Dto--Data Transfer Object
 
     public void setScholarship(BigDecimal scholarship) {
         this.scholarship = scholarship;
+    }
+
+    public StudentEntity studentToEntity(){
+        return new StudentEntity()
+                .setName(name)
+                .setSurname(surname)
+                .setAge(age)
+                .setScholarship(scholarship);
     }
 }
