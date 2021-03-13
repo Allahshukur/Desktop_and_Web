@@ -67,4 +67,8 @@ public class StudentService {
         }
         return true;
     }
+
+    public void save(StudentDto studentDto){
+        studentRepository.save(studentDto.ToEntity());
+    }
 }

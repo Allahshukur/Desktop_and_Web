@@ -9,16 +9,18 @@ public class SchoolDto {
         return id;
     }
 
-    public void setId(Integer id) {
+    public SchoolDto setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public SchoolDto setName(String name) {
         this.name = name;
+        return this;
     }
 
     @Override

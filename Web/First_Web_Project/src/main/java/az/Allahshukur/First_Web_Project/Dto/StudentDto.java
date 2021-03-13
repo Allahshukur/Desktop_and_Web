@@ -1,11 +1,14 @@
 package az.Allahshukur.First_Web_Project.Dto;
 
+import az.Allahshukur.First_Web_Project.entity.SchoolEntity;
 import az.Allahshukur.First_Web_Project.entity.StudentEntity;
+import az.Allahshukur.First_Web_Project.entity.TeacherEntity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
-public class StudentDto {// Dto--Data Transfer Object
+public class StudentDto {
 
     private Integer id;
     private String name;
@@ -20,56 +23,63 @@ public class StudentDto {// Dto--Data Transfer Object
         return id;
     }
 
-    public void setId(Integer id) {
+    public StudentDto setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public StudentDto setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
+    public StudentDto setSurname(String surname) {
         this.surname = surname;
+        return this;
     }
 
     public Integer getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public StudentDto setAge(Integer age) {
         this.age = age;
+        return this;
     }
 
     public BigDecimal getScholarship() {
         return scholarship;
     }
 
-    public void setScholarship(BigDecimal scholarship) {
+    public StudentDto setScholarship(BigDecimal scholarship) {
         this.scholarship = scholarship;
+        return this;
     }
 
     public SchoolDto getSchool() {
         return school;
     }
 
-    public void setSchool(SchoolDto school) {
+    public StudentDto setSchool(SchoolDto school) {
         this.school = school;
+        return this;
     }
 
     public List<TeacherDto> getTeacherList() {
         return teacherList;
     }
 
-    public void setTeacherList(List<TeacherDto> teacherList) {
+    public StudentDto setTeacherList(List<TeacherDto> teacherList) {
         this.teacherList = teacherList;
+        return this;
     }
 
     @Override
@@ -82,11 +92,25 @@ public class StudentDto {// Dto--Data Transfer Object
                 '}';
     }
 
-    public StudentEntity studentToEntity(){
+    public StudentEntity ToEntity() {
+        List<TeacherEntity> teachers = new ArrayList<>();
+        for (TeacherDto teacherDto: this.getTeacherList()){
+            teachers.add(new TeacherEntity()
+                .setId(teacherDto.getId())
+                .setName(teacherDto.getName()));
+        }
+
         return new StudentEntity()
-                .setName(name)
-                .setSurname(surname)
-                .setAge(age)
-                .setScholarship(scholarship);
+                .setId(this.getId())
+                .setName(this.getName())
+                .setSurname(this.getSurname())
+                .setAge(this.getAge())
+                .setScholarship(this.getScholarship())
+                .setSchool(
+                        new SchoolEntity()
+                                .setId(this.getSchool().getId())
+                                .setName(this.getSchool().getName())
+                )
+                .setTeacherList(teachers);
     }
 }

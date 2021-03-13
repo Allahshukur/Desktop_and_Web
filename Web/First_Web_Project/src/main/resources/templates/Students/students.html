@@ -15,58 +15,46 @@
         function showAllStudents() {
             document.getElementById("studentPanelRest").innerHTML = "";
             var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open( "GET", "http://localhost:8080/Rest/Students", false );
+            xmlHttp.open("GET", "http://localhost:8080/Rest/Students", false);
             xmlHttp.send(null);
             var list = JSON.parse(xmlHttp.responseText);
 
             var studentPanelRest = document.getElementById("tableStudentRows");
 
-            for (var i = 0; i < list.length; i++) {
+            var tableStudentRows = " <tr >\n" +
+                "        <td >:id</td>\n" +
+                "        <td >:name</td>\n" +
+                "        <td >:surname</td>\n" +
+                "        <td >:age</td>\n" +
+                "        <td >:scholarship</td>\n" +
+                "        <td >:school</td>\n" +
+                "        <td >:teacher</td>\n" +
+                "        <td class=\"td_controller\">\n" +
+                "        <button type=\"submit\" class=\"btn btn-outline-danger\" data-bs-toggle=\"modal\" data-bs-target=\"#deletePanel\"\n" +
+                "                    value=\":id\"onclick=\"fillSelectedItemForDelete(:id)\">Delete </button>\n" +
+                "            <button type=\"button\" class=\"btn btn-outline-success\" data-bs-toggle=\"modal\" data-bs-target=\"#updatePanel\"\n" +
+                "                    onclick=\"fillSelectedItemForUpdate(\n" +
+                "                            :id,\n" +
+                "                            ':name',\n" +
+                "                            ':surname',\n" +
+                "                            :age,\n" +
+                "                            :scholarship\n" +
+                "                        )\">\n" +
+                "                Update </button>\n" +
+                "        </td>\n" +
+                "    </tr>";
 
-                var tableStudentRows = " <tr >\n" +
-                    "        <td >:id</td>\n" +
-                    "        <td >:name</td>\n" +
-                    "        <td >:surname</td>\n" +
-                    "        <td >:age</td>\n" +
-                    "        <td >:scholarship</td>\n" +
-                    "        <td >:school</td>\n" +
-                    "        <td >:teacher</td>\n" +
-                    "        <td class=\"td_controller\">\n" +
-                    "            <button type=\"submit\" class=\"btn btn-outline-danger\" data-bs-toggle=\"modal\" data-bs-target=\"#deletePanel\"\n" +
-                    "                    value=\":id\"\n" +
-                    "\n" +
-                    "                    onclick=\"fillSelectedItemForDelete(:id)\"\n" +
-                    "            >Delete </button>\n" +
-                    "            <button type=\"button\" class=\"btn btn-outline-success\" data-bs-toggle=\"modal\" data-bs-target=\"#updatePanel\"\n" +
-                    "                    onclick=\"fillSelectedItemForUpdate(\n" +
-                    "                            :id,\n" +
-                    "                            ':name',\n" +
-                    "                            ':surname',\n" +
-                    "                            :age,\n" +
-                    "                            :scholarship\n" +
-                    "                        )\">\n" +
-                    "                Update </button>\n" +
-                    "        </td>\n" +
-                    "    </tr>";
+            for (var i = 0; i < list.length; i++) {
 
                 var teachers = "";
                 for (var j = 0; j < list[i].teacherList.length; j++) {
                     teachers += list[i].teacherList[j].name;
                 }
 
-                // var schools =list[i].school.name;
-                // if (schools==null){
-                //     schools =null;
-                // }
-                // else {
-                //     schools=list[i].school.name;
-                // }
-
-
                 studentPanelRest.innerHTML = studentPanelRest.innerHTML +
                     tableStudentRows.replace(":id", list[i].id).replace(":name", list[i].name).replace(":surname", list[i].surname)
                         .replace(":age", list[i].age).replace(":scholarship", list[i].scholarship)
-                .replace(":teacher", teachers).replace(":school", list[i].school.name);
+                        .replace(":teacher", teachers).replace(":school", list[i].school.name);
             }
             document.getElementById("studentPanelRest").style = "display: block";
         }

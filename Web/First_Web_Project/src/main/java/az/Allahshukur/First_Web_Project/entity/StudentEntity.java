@@ -18,8 +18,8 @@ public class StudentEntity {
 
     @ManyToMany(fetch = FetchType.EAGER,
             cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
+//            CascadeType.PERSIST,
+//            CascadeType.MERGE,
 //            CascadeType.REMOVE
     })
     @JoinTable(name = "student_teacher",
@@ -81,16 +81,18 @@ public class StudentEntity {
         return teacherList;
     }
 
-    public void setTeacherList(List<TeacherEntity> teacherList) {
+    public StudentEntity setTeacherList(List<TeacherEntity> teacherList) {
         this.teacherList = teacherList;
+        return this;
     }
 
     public SchoolEntity getSchool() {
         return school;
     }
 
-    public void setSchool(SchoolEntity school) {
+    public StudentEntity setSchool(SchoolEntity school) {
         this.school = school;
+        return this;
     }
 
     @Override

@@ -28,24 +28,27 @@ public class TeacherEntity {
         return id;
     }
 
-    public void setId(Integer id) {
+    public TeacherEntity setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public TeacherEntity setName(String name) {
         this.name = name;
+        return this;
     }
 
     public List<StudentEntity> getStudentList() {
         return studentList;
     }
 
-    public void setStudentList(List<StudentEntity> studentList) {
+    public TeacherEntity setStudentList(List<StudentEntity> studentList) {
         this.studentList = studentList;
+        return this;
     }
 
     @Override

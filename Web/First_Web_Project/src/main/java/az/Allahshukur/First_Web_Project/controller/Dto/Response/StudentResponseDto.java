@@ -1,8 +1,11 @@
-package az.Allahshukur.First_Web_Project.controller.Dto;
+package az.Allahshukur.First_Web_Project.controller.Dto.Response;
 
+import az.Allahshukur.First_Web_Project.Dto.StudentDto;
+import az.Allahshukur.First_Web_Project.Dto.TeacherDto;
 import az.Allahshukur.First_Web_Project.entity.StudentEntity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentResponseDto {// Dto--Data Transfer Object
@@ -15,6 +18,32 @@ public class StudentResponseDto {// Dto--Data Transfer Object
 
     private SchoolResponseDto school;
     private List<TeacherResponseDto> teacherList;
+
+    public static StudentResponseDto instance(StudentDto st){
+        StudentResponseDto studentResponseDto = new StudentResponseDto();
+        studentResponseDto.setId(st.getId());
+        studentResponseDto.setName(st.getName());
+        studentResponseDto.setSurname(st.getSurname());
+        studentResponseDto.setAge(st.getAge());
+        studentResponseDto.setScholarship(st.getScholarship());
+
+        SchoolResponseDto schoolDto = new SchoolResponseDto();
+        schoolDto.setId(st.getSchool().getId());
+        schoolDto.setName(st.getSchool().getName());
+        studentResponseDto.setSchool(schoolDto);
+
+        List<TeacherResponseDto> teacherList = new ArrayList<>();
+
+        for (TeacherDto teacherDtos: st.getTeacherList()){
+            TeacherResponseDto teacherDto = new TeacherResponseDto();
+            teacherDto.setId(teacherDtos.getId());
+            teacherDto.setName(teacherDtos.getName());
+            teacherList.add(teacherDto);
+        }
+
+        studentResponseDto.setTeacherList(teacherList);
+        return studentResponseDto;
+    }
 
     public Integer getId() {
         return id;

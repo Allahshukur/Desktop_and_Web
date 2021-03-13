@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity, Integer> {
 
+
     List<StudentEntity> findByNameOrSurnameOrAgeOrScholarship(String name, String surname, Integer age, BigDecimal scholarship);
 
 //    @Query(value = "select s from StudentEntity s where s.school.id=:id and s.age=:age") //JPQL ile yazilisi.

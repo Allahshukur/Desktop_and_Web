@@ -1,6 +1,6 @@
-package az.Allahshukur.First_Web_Project.Dto;
+package az.Allahshukur.First_Web_Project.controller.Dto.Request;
 
-public class TeacherDto {
+public class TeacherRequestDto {
 
     private Integer id;
     private String name;
@@ -9,7 +9,7 @@ public class TeacherDto {
         return id;
     }
 
-    public TeacherDto setId(Integer id) {
+    public TeacherRequestDto setId(Integer id) {
         this.id = id;
         return this;
     }
@@ -18,7 +18,7 @@ public class TeacherDto {
         return name;
     }
 
-    public TeacherDto setName(String name) {
+    public TeacherRequestDto setName(String name) {
         this.name = name;
         return this;
     }

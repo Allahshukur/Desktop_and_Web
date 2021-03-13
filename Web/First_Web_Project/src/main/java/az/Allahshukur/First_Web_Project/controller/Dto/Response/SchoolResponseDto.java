@@ -1,4 +1,4 @@
-package az.Allahshukur.First_Web_Project.controller.Dto;
+package az.Allahshukur.First_Web_Project.controller.Dto.Response;
 
 public class SchoolResponseDto {
 

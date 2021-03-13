@@ -21,32 +21,36 @@ public class SchoolEntity {
         return id;
     }
 
-    public void setId(Integer id) {
+    public SchoolEntity setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public SchoolEntity setName(String name) {
         this.name = name;
+        return this;
     }
 
     public List<StudentEntity> getStudentlist() {
         return studentlist;
     }
 
-    public void setStudentlist(List<StudentEntity> studentlist) {
+    public SchoolEntity setStudentlist(List<StudentEntity> studentlist) {
         this.studentlist = studentlist;
+        return this;
     }
 
     public SchoolAdress getSchoolAdress() {
         return schoolAdress;
     }
 
-    public void setSchoolAdress(SchoolAdress schoolAdress) {
+    public SchoolEntity setSchoolAdress(SchoolAdress schoolAdress) {
         this.schoolAdress = schoolAdress;
+        return this;
     }
 
     @Override
