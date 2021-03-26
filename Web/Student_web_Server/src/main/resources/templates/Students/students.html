@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Student and Teacher Management</title>
+    <link rel="stylesheet" href="../index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+
+    <script>
+
+        function showAllStudents() {
+            document.getElementById("studentPanelRest").innerHTML = "";
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", "http://localhost:8080/Rest/Students", false);
+            xmlHttp.send(null);
+            var list = JSON.parse(xmlHttp.responseText);
+
+            var studentPanelRest = document.getElementById("tableStudentRows");
+
+            var tableStudentRows = " <tr >\n" +
+                "        <td >:id</td>\n" +
+                "        <td >:name</td>\n" +
+                "        <td >:surname</td>\n" +
+                "        <td >:age</td>\n" +
+                "        <td >:scholarship</td>\n" +
+                "        <td >:school</td>\n" +
+                "        <td >:teacher</td>\n" +
+                "        <td class=\"td_controller\">\n" +
+                "        <button type=\"submit\" class=\"btn btn-outline-danger\" data-bs-toggle=\"modal\" data-bs-target=\"#deletePanel\"\n" +
+                "                    value=\":id\"onclick=\"fillSelectedItemForDelete(:id)\">Delete </button>\n" +
+                "            <button type=\"button\" class=\"btn btn-outline-success\" data-bs-toggle=\"modal\" data-bs-target=\"#updatePanel\"\n" +
+                "                    onclick=\"fillSelectedItemForUpdate(\n" +
+                "                            :id,\n" +
+                "                            ':name',\n" +
+                "                            ':surname',\n" +
+                "                            :age,\n" +
+                "                            :scholarship\n" +
+                "                        )\">\n" +
+                "                Update </button>\n" +
+                "        </td>\n" +
+                "    </tr>";
+
+            for (var i = 0; i < list.length; i++) {
+
+                var teachers = "";
+                for (var j = 0; j < list[i].teacherList.length; j++) {
+                    teachers += list[i].teacherList[j].name;
+                }
+
+                studentPanelRest.innerHTML = studentPanelRest.innerHTML +
+                    tableStudentRows.replace(":id", list[i].id).replace(":name", list[i].name).replace(":surname", list[i].surname)
+                        .replace(":age", list[i].age).replace(":scholarship", list[i].scholarship)
+                        .replace(":teacher", teachers).replace(":school", list[i].school.name);
+            }
+            document.getElementById("studentPanelRest").style = "display: block";
+        }
+
+
+        function fillSelectedItemForUpdate(id, name, surname, age, scholarship) {
+            document.getElementById("idUpdate").value = id;
+            document.getElementById("nameUpdate").value = name;
+            document.getElementById("surnameUpdate").value = surname;
+            document.getElementById("ageUpdate").value = age;
+            document.getElementById("scholarshipUpdate").value = scholarship;
+            // document.getElementById("schoolUpdate").value=school;
+            // document.getElementById("UpdatePanel").style = "display: block";
+            // document.getElementById("AddPanel").style = "display: none";
+            // document.getElementById("DeletePanel").style = "display: none";
+        }
+
+        function fillSelectedItemForDelete(id) {
+            document.getElementById("idDelete").value = id;
+            // document.getElementById("DeletePanel").style = "display: block"
+            // document.getElementById("UpdatePanel").style = "display: none"
+            // document.getElementById("AddPanel").style = "display: none"
+        }
+
+        function hideStudents() {
+            document.getElementById("studentPanelRest").style = "display: none";
+            document.getElementById("studentPanelRest").innerHTML = "";
+        }
+
+
+    </script>
+
+</head>
+<body background="" bgcolor="blue-dark">
+
+<div>
+    <button onclick="showAllStudents()">Show students</button>
+    <button onclick="hideStudents()">Hide students</button>
+    <form class="studentPanelRest">
+        <label id="studentPanelRest">
+
+        </label>
+    </form>
+</div>
+
+
+<div class="nameOfPageHead">
+    <h1>Welcome to Students Page</h1>
+</div>
+<br>
+
+<form method="get" action="/Students" class="tableSearch">
+    Name: <input type="text" class="name" id="name" name="name"/>
+    Surname : <input type="text" class="name" id="surname" name="surname"/>
+    Age: <input type="number" class="name" id="age" maxlength="3" name="age"/>
+    Scholarship: <input type="number" class="name" id="scholarsipSearch" name="scholarship"/><br><br>
+    <button type="submit" class="btn btn-outline-primary">Search</button>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPanel">Add</button>
+    <button type="button" class="btn btn-warning"><a href="/index">Back</a></button>
+</form>
+
+
+<table class="table table-dark table-hover">
+    <thead>
+    <tr>
+        <th class="tb_id">id</th>
+        <th class="tb_name">Name</th>
+        <th class="tb_surname">Surname</th>
+        <th class="tb_age">Age</th>
+        <th class="tb_scholarsip">Scholarship</th>
+        <th class="tb_school">School</th>
+        <th class="tb_teachers">Teachers</th>
+        <th class="tb_controls">Controls</th>
+    </tr>
+    </thead>
+    <tbody id="tableStudentRows">
+
+    </tbody>
+</table>
+
+
+<div>
+    <form method="post" action="/Students/add">
+        <div class="modal" tabindex="-1" id="addPanel">
+            <div class="modal-dialog">
+                <div class="modal-content" id="addModal">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Students</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <label>Name:</label>
+                            <input type="text" name="name" id="nameReg" placeholder="Name" required>
+                            <br><br>
+
+                            <label class="surnameReg">Surname:</label>
+                            </label> <input type="text" name="surname" id="surnameReg" placeholder="Surname" required>
+                            <br><br>
+
+                            <label>Age:</label>
+                            <input type="number" name="age" id="AgeReg" placeholder="Age" required>
+                            <br><br>
+
+                            <label>Scholarsip:</label>
+                            <input type="number" name="scholarship" id="ScholarshipReg" placeholder="Scholarship"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="addBtn">
+                            <button name="Add" class="btn btn-success">Add</button>
+                            <button name="Close" class="btn btn-success closeBtn" data-bs-dismiss="modal">Close</button>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div>
+    <form method="post" action="/Students/update">
+        <div class="modal" tabindex="-1" id="updatePanel">
+            <div class="modal-dialog">
+                <div class="modal-content" id="updateModal">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Update Students</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div>
+                            <input type="hidden" name="id" id="idUpdate">
+
+                            <label>Name:</label>
+                            <input type="text" name="name" id="nameUpdate" placeholder="Name" required>
+                            <!--            <span class="error1">*</span>-->
+                            <br><br>
+                            <label class="surnameReg">Surname:</label>
+                            </label> <input type="text" name="surname" id="surnameUpdate" placeholder="Surname"
+                                            required>
+                            <!--            <span class="error1">*</span>-->
+                            <br><br>
+
+                            <label>Age:</label>
+                            <input type="number" name="age" id="ageUpdate" placeholder="Age" required>
+                            <!--            <span class="error1">*</span>-->
+                            <br><br>
+
+                            <label>Scholarsip:</label>
+                            <input type="number" name="scholarship" id="scholarshipUpdate" placeholder="Scholarship"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div>
+                            <button type="submit" name="update" class="btn btn-success">Update</button>
+                            <button type="button" name="update" class="btn btn-success closeBtn"
+                                    data-bs-dismiss="modal">Close
+                            </button>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<div>
+    <form method="post" action="/Students/delete">
+        <div class="modal" tabindex="-1" id="deletePanel">
+            <div class="modal-dialog">
+                <div class="modal-content" id="deleteModal">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" name="id" id="idDelete">
+                        <h5>Are you Sure to Delete?</h5> </br> </br>
+                    </div>
+                    <div class="modal-footer">
+                        <div>
+                            <button type="submit" class="btn btn-warning">Yes</button>
+                            <button type="button" class="btn btn-success closeBtn"
+                                    data-bs-dismiss="modal">No
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    showAllStudents();
+</script>
+
+</body>
+</html>
