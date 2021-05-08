@@ -4,8 +4,6 @@ import az.Allahshukur.First_Web_Project.Dto.StudentDto;
 import az.Allahshukur.First_Web_Project.entity.StudentEntity;
 import az.Allahshukur.First_Web_Project.repository.StudentRepository;
 import az.Allahshukur.First_Web_Project.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +45,7 @@ public class StudentController {
     public String Add(@ModelAttribute StudentEntity studentEntity) {
         studentRepository.save(studentEntity);
 
-        return "redirect:/Students";
+       return "redirect:/Students";
     }
 
     @PostMapping(value = "/update")

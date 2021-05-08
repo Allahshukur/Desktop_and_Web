@@ -12,8 +12,89 @@
 
     <script>
 
+        function deletStudents(){
+
+            var students = {
+                id:document.getElementById("idDelete").value
+            }
+
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {  // bir eded funksiya yazilir ve deyilirki eger evvelki funksiya isini qurtaribsa bu funksiya ise dussun ona gorede gozeleyir eks halda biz showAllStudents funskiyasin cagirsag evvelki isin bitirmemis ise dusecek ve add olunan studenti tapa bilmeyecek.
+                showAllStudents();
+            }
+            xmlHttp.open("DELETE", "http://localhost:8080/Rest/Students/"+students2.id, false);
+            xmlHttp.setRequestHeader('Content-type', 'application/json');
+            xmlHttp.send(JSON.stringify(students2));
+
+        }
+
+        function updateStudent(){
+            var students = {
+                id: document.getElementById("idUpdate").value,
+                name: document.getElementById("nameUpdate").value,
+                surname: document.getElementById("surnameUpdate").value,
+                age: document.getElementById("ageUpdate").value,
+                scholarship: document.getElementById("scholarshipUpdate").value
+            }
+
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {  // bir eded funksiya yazilir ve deyilirki eger evvelki funksiya isini qurtaribsa bu funksiya ise dussun ona gorede gozeleyir eks halda biz showAllStudents funskiyasin cagirsag evvelki isin bitirmemis ise dusecek ve add olunan studenti tapa bilmeyecek.
+                showAllStudents();
+            }
+            xmlHttp.open("PUT", "http://localhost:8080/Rest/Students", false);
+            xmlHttp.setRequestHeader('Content-type', 'application/json');
+            xmlHttp.send(JSON.stringify(students2));
+        }
+
+        function clearAdd(){
+            document.getElementById("nameAdd").value="";
+            document.getElementById("surnameAdd").value="";
+            document.getElementById("ageAdd").value="";
+            document.getElementById("scholarshipAdd").value="";
+        }
+
+        function addStudents() {
+            var students = {
+                name: document.getElementById("nameAdd").value,
+                surname: document.getElementById("surnameAdd").value,
+                age: document.getElementById("ageAdd").value,
+                scholarship: document.getElementById("scholarshipAdd").value,
+            }
+
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+                    showAllStudents();
+            }
+            xmlHttp.open("POST", "http://localhost:8080/Rest/Students", false);
+            xmlHttp.setRequestHeader('Content-type', 'application/json');
+            xmlHttp.send(JSON.stringify(students2));
+            clearAdd();
+
+        }
+
+        function searchPanel() {
+            var students = {
+                name: document.getElementById("nameAdd").value,
+                surname: document.getElementById("surnameAdd").value,
+                age: document.getElementById("ageAdd").value,
+                scholarship: document.getElementById("scholarshipAdd").value,
+            }
+
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+                showAllStudents();
+            }
+            xmlHttp.open("Get", "http://localhost:8080/Rest/Students", false);
+            xmlHttp.setRequestHeader('Content-type', 'application/json');
+            xmlHttp.send(JSON.stringify(students2));
+            clearAdd();
+
+        }
+
+
         function showAllStudents() {
-            document.getElementById("studentPanelRest").innerHTML = "";
+            document.getElementById("tableStudentRows").innerHTML = "";
+
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("GET", "http://localhost:8080/Rest/Students", false);
             xmlHttp.send(null);
@@ -51,12 +132,22 @@
                     teachers += list[i].teacherList[j].name;
                 }
 
+                var schools = "";
+                if (list[i].school == null) {
+                    schools="";
+                } else {
+                    schools = list[i].school.name;
+                }
+
                 studentPanelRest.innerHTML = studentPanelRest.innerHTML +
-                    tableStudentRows.replace(":id", list[i].id).replace(":name", list[i].name).replace(":surname", list[i].surname)
-                        .replace(":age", list[i].age).replace(":scholarship", list[i].scholarship)
-                        .replace(":teacher", teachers).replace(":school", list[i].school.name);
+                    tableStudentRows.replaceAll(":id", list[i].id).replaceAll(":name", list[i].name).replaceAll(":surname", list[i].surname)
+                        .replaceAll(":age", list[i].age).replaceAll(":scholarship", list[i].scholarship)
+                        .replaceAll(":teacher", teachers).replaceAll(":school", schools);
             }
-            document.getElementById("studentPanelRest").style = "display: block";
+        }
+
+        function hideStudents(){
+            document.getElementById("tableStudentRows").innerHTML="";
         }
 
 
@@ -79,12 +170,6 @@
             // document.getElementById("AddPanel").style = "display: none"
         }
 
-        function hideStudents() {
-            document.getElementById("studentPanelRest").style = "display: none";
-            document.getElementById("studentPanelRest").innerHTML = "";
-        }
-
-
     </script>
 
 </head>
@@ -92,12 +177,7 @@
 
 <div>
     <button onclick="showAllStudents()">Show students</button>
-    <button onclick="hideStudents()">Hide students</button>
-    <form class="studentPanelRest">
-        <label id="studentPanelRest">
-
-        </label>
-    </form>
+    <button onclick="hideStudents()" >Hide students</button>
 </div>
 
 
@@ -106,15 +186,15 @@
 </div>
 <br>
 
-<form method="get" action="/Students" class="tableSearch">
+<div class="tableSearch">
     Name: <input type="text" class="name" id="name" name="name"/>
     Surname : <input type="text" class="name" id="surname" name="surname"/>
     Age: <input type="number" class="name" id="age" maxlength="3" name="age"/>
     Scholarship: <input type="number" class="name" id="scholarsipSearch" name="scholarship"/><br><br>
-    <button type="submit" class="btn btn-outline-primary">Search</button>
+    <button type="submit" class="btn btn-outline-primary" onclick="showAllStudents()">Search</button>
     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPanel">Add</button>
     <button type="button" class="btn btn-warning"><a href="/index">Back</a></button>
-</form>
+</div>
 
 
 <table class="table table-dark table-hover">
@@ -137,7 +217,6 @@
 
 
 <div>
-    <form method="post" action="/Students/add">
         <div class="modal" tabindex="-1" id="addPanel">
             <div class="modal-dialog">
                 <div class="modal-content" id="addModal">
@@ -148,25 +227,25 @@
                     <div class="modal-body">
                         <div>
                             <label>Name:</label>
-                            <input type="text" name="name" id="nameReg" placeholder="Name" required>
+                            <input type="text" name="name" id="nameAdd" placeholder="Name" required>
                             <br><br>
 
                             <label class="surnameReg">Surname:</label>
-                            </label> <input type="text" name="surname" id="surnameReg" placeholder="Surname" required>
+                            </label> <input type="text" name="surname" id="surnameAdd" placeholder="Surname" required>
                             <br><br>
 
                             <label>Age:</label>
-                            <input type="number" name="age" id="AgeReg" placeholder="Age" required>
+                            <input type="number" name="age" id="ageAdd" placeholder="Age" required>
                             <br><br>
 
                             <label>Scholarsip:</label>
-                            <input type="number" name="scholarship" id="ScholarshipReg" placeholder="Scholarship"
+                            <input type="number" name="scholarship" id="scholarshipAdd" placeholder="Scholarship"
                                    required>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="addBtn">
-                            <button name="Add" class="btn btn-success">Add</button>
+                            <button name="Add" class="btn btn-success" onclick="addStudents()" data-bs-dismiss="modal">Add</button>
                             <button name="Close" class="btn btn-success closeBtn" data-bs-dismiss="modal">Close</button>
                             <br><br>
                         </div>
@@ -174,12 +253,9 @@
                 </div>
             </div>
         </div>
-
-    </form>
 </div>
 
 <div>
-    <form method="post" action="/Students/update">
         <div class="modal" tabindex="-1" id="updatePanel">
             <div class="modal-dialog">
                 <div class="modal-content" id="updateModal">
@@ -214,28 +290,23 @@
                     </div>
                     <div class="modal-footer">
                         <div>
-                            <button type="submit" name="update" class="btn btn-success">Update</button>
-                            <button type="button" name="update" class="btn btn-success closeBtn"
-                                    data-bs-dismiss="modal">Close
-                            </button>
+                            <button type="submit" name="update" class="btn btn-success" onclick="updateStudent()" data-bs-dismiss="modal">Update</button>
+                            <button type="button" name="update" class="btn btn-success closeBtn" data-bs-dismiss="modal">Close</button>
                             <br><br>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-    </form>
 </div>
 
 
 <div>
-    <form method="post" action="/Students/delete">
         <div class="modal" tabindex="-1" id="deletePanel">
             <div class="modal-dialog">
                 <div class="modal-content" id="deleteModal">
                     <div class="modal-header">
-                        <h5 class="modal-title">Delete</h5>
+                        <h5 class="modal-title" >Delete</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -245,7 +316,7 @@
                     </div>
                     <div class="modal-footer">
                         <div>
-                            <button type="submit" class="btn btn-warning">Yes</button>
+                            <button type="submit" class="btn btn-warning" onclick="deletStudents()" data-bs-dismiss="modal">Yes</button>
                             <button type="button" class="btn btn-success closeBtn"
                                     data-bs-dismiss="modal">No
                             </button>
@@ -254,9 +325,11 @@
                 </div>
             </div>
         </div>
-    </form>
 </div>
 
+<script>
+    showAllStudents();
+</script>
 
 </body>
 </html>

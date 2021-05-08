@@ -19,7 +19,7 @@ public class StudentResponseDto {// Dto--Data Transfer Object
     private SchoolResponseDto school;
     private List<TeacherResponseDto> teacherList;
 
-    public static StudentResponseDto instance(StudentDto st){
+    public static StudentResponseDto instance(StudentDto st) {
         StudentResponseDto studentResponseDto = new StudentResponseDto();
         studentResponseDto.setId(st.getId());
         studentResponseDto.setName(st.getName());
@@ -28,13 +28,19 @@ public class StudentResponseDto {// Dto--Data Transfer Object
         studentResponseDto.setScholarship(st.getScholarship());
 
         SchoolResponseDto schoolDto = new SchoolResponseDto();
-        schoolDto.setId(st.getSchool().getId());
-        schoolDto.setName(st.getSchool().getName());
-        studentResponseDto.setSchool(schoolDto);
+        if (st.getSchool() != null) {
+            schoolDto.setId(st.getSchool().getId());
+            schoolDto.setName(st.getSchool().getName());
+            studentResponseDto.setSchool(schoolDto);
+        }
+        else {
+            schoolDto.setName("");
+            studentResponseDto.setSchool(schoolDto);
+        }
 
         List<TeacherResponseDto> teacherList = new ArrayList<>();
 
-        for (TeacherDto teacherDtos: st.getTeacherList()){
+        for (TeacherDto teacherDtos : st.getTeacherList()) {
             TeacherResponseDto teacherDto = new TeacherResponseDto();
             teacherDto.setId(teacherDtos.getId());
             teacherDto.setName(teacherDtos.getName());
@@ -111,7 +117,7 @@ public class StudentResponseDto {// Dto--Data Transfer Object
                 '}';
     }
 
-    public StudentEntity studentToEntity(){
+    public StudentEntity studentToEntity() {
         return new StudentEntity()
                 .setName(name)
                 .setSurname(surname)

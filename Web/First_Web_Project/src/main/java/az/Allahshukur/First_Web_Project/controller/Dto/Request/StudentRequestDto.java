@@ -21,10 +21,19 @@ public class StudentRequestDto {
 
     public StudentDto toStudentDto(){
         List<TeacherDto> teacherDtos= new ArrayList<>();
-        for (TeacherRequestDto teacherRequestDto : this.getTeachers()){
-            teacherDtos.add(new TeacherDto()
-            .setId(teacherRequestDto.getId())
-            .setName(teacherRequestDto.getName()));
+        if (this.getTeachers() !=null) {
+            for (TeacherRequestDto teacherRequestDto : this.getTeachers()) {
+                teacherDtos.add(new TeacherDto()
+                        .setId(teacherRequestDto.getId())
+                        .setName(teacherRequestDto.getName()));
+            }
+        }
+
+        SchoolDto schoolDto=null;
+        if (this.getSchool() != null) {
+            new SchoolDto()
+                    .setId(this.getSchool().getId())
+                    .setName(this.getSchool().getName());
         }
 
         return new StudentDto()
@@ -33,13 +42,8 @@ public class StudentRequestDto {
                 .setSurname(this.getSurname())
                 .setAge(this.getAge())
                 .setScholarship(this.getScholarship())
-                .setSchool(
-                        new SchoolDto()
-                        .setId(this.getSchool().getId())
-                        .setName(this.getSchool().getName())
-                )
+                .setSchool(schoolDto)
                 .setTeacherList(teacherDtos);
-
     }
 
     public Integer getId() {

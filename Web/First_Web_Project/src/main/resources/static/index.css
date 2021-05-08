@@ -196,7 +196,7 @@ a{
 
 }
 
-#surnameReg {
+#surnameAdd {
     color: red;
     border-radius: 30px;
     font-size: 17px;
@@ -275,7 +275,7 @@ a{
 /*    padding: 0 0 0 25px;*/
 /*}*/
 
-#nameReg,#AgeReg, #ScholarshipReg, #surnameReg, #password {
+#nameAdd,#ageAdd, #scholarshipAdd, #surnameAdd, #password {
     color: red;
     border-radius: 30px;
     font: 17px "Times New Roman";

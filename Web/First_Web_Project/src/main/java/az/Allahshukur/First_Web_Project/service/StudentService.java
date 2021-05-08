@@ -12,12 +12,23 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    public StudentDto findById(Integer id){
+        Optional<StudentEntity> optional =studentRepository.findById(id);
+        if (optional.isPresent()) {                // icerisinde opyekt varsa dovre gir
+            return StudentDto.instance(studentRepository.findById(id).get());
+        }
+        else {
+            return null;
+        }
+    }
 
     public List<StudentDto> findAll(String name, String surname, Integer age, BigDecimal scholarship) {
 
@@ -38,11 +49,12 @@ public class StudentService {
             studentDto.setAge(st.getAge());
             studentDto.setScholarship(st.getScholarship());
 
-            SchoolDto schoolDto = new SchoolDto();
-            schoolDto.setId(st.getSchool().getId());
-            schoolDto.setName(st.getSchool().getName());
-            studentDto.setSchool(schoolDto);
-
+            if (st.getSchool() != null) {
+                SchoolDto schoolDto = new SchoolDto();
+                schoolDto.setId(st.getSchool().getId());
+                schoolDto.setName(st.getSchool().getName());
+                studentDto.setSchool(schoolDto);
+            }
             List<TeacherDto> teacherList = new ArrayList<>();
 
             for (TeacherEntity teacherEntity: st.getTeacherList()){
@@ -68,7 +80,25 @@ public class StudentService {
         return true;
     }
 
+    public StudentDto deleteById(Integer id){
+        StudentDto studentDto =findById(id);
+        studentRepository.deleteById(id);
+        return studentDto;
+    }
+
     public void save(StudentDto studentDto){
         studentRepository.save(studentDto.ToEntity());
     }
+
+    public void update(StudentDto studentDto){
+        if (studentRepository.getOne(studentDto.getId())==null) {
+            throw new IllegalArgumentException("not found");
+        }
+        studentRepository.save(studentDto.ToEntity());
+    }
+
+
+
+
 }
+

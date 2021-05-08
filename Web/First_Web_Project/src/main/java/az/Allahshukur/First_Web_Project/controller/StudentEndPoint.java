@@ -9,6 +9,8 @@ import az.Allahshukur.First_Web_Project.controller.Dto.Response.TeacherResponseD
 import az.Allahshukur.First_Web_Project.entity.StudentEntity;
 import az.Allahshukur.First_Web_Project.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -43,9 +45,28 @@ public class StudentEndPoint {
         return result;
     }
 
+    @GetMapping(value = "/{id}")
+    public StudentResponseDto getById(@PathVariable("id") Integer id)  {
+        return StudentResponseDto.instance(studentService.findById(id));
+    }
+
     @PostMapping
     public String Add(@RequestBody StudentRequestDto studentRequestDto) {
         studentService.save(studentRequestDto.toStudentDto());
         return studentRequestDto.toString();
+    }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<StudentResponseDto> deleteById(@PathVariable("id") Integer id){
+        if (studentService.findById(id)==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(StudentResponseDto.instance(studentService.deleteById(id)));
+    }
+
+    @PutMapping
+    public String update(@RequestBody StudentRequestDto studentRequestDto){
+        studentService.update(studentRequestDto.toStudentDto());
+        return "success";
     }
 }

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentDto {
+public class StudentDto extends SchoolDto{
 
     private Integer id;
     private String name;
@@ -91,6 +91,33 @@ public class StudentDto {
                 ", scholarship=" + scholarship +
                 '}';
     }
+    public static StudentDto instance(StudentEntity st){
+        StudentDto studentDto = new StudentDto();
+        studentDto.setId(st.getId());
+        studentDto.setName(st.getName());
+        studentDto.setSurname(st.getSurname());
+        studentDto.setAge(st.getAge());
+        studentDto.setScholarship(st.getScholarship());
+
+        if (st.getSchool() != null) {
+            SchoolDto schoolDto = new SchoolDto();
+            schoolDto.setId(st.getSchool().getId());
+            schoolDto.setName(st.getSchool().getName());
+            studentDto.setSchool(schoolDto);
+        }
+
+        List<TeacherDto> teacherList = new ArrayList<>();
+
+        for (TeacherEntity teacherEntity: st.getTeacherList()){
+            TeacherDto teacherDto = new TeacherDto();
+            teacherDto.setId(teacherEntity.getId());
+            teacherDto.setName(teacherEntity.getName());
+            teacherList.add(teacherDto);
+        }
+        studentDto.setTeacherList(teacherList);
+
+        return studentDto;
+}
 
     public StudentEntity ToEntity() {
         List<TeacherEntity> teachers = new ArrayList<>();
@@ -100,17 +127,20 @@ public class StudentDto {
                 .setName(teacherDto.getName()));
         }
 
+        SchoolEntity schoolEntity =null;
+        if (this.getSchool() !=null) {
+            new SchoolEntity()
+                    .setId(this.getSchool().getId())
+                    .setName(this.getSchool().getName());
+        }
+
         return new StudentEntity()
                 .setId(this.getId())
                 .setName(this.getName())
                 .setSurname(this.getSurname())
                 .setAge(this.getAge())
                 .setScholarship(this.getScholarship())
-                .setSchool(
-                        new SchoolEntity()
-                                .setId(this.getSchool().getId())
-                                .setName(this.getSchool().getName())
-                )
+                .setSchool(schoolEntity)
                 .setTeacherList(teachers);
     }
 }
